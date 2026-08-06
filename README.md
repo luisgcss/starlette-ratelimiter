@@ -2,7 +2,7 @@
 
 Fast, async rate limiting for [Starlette](https://www.starlette.io/) apps.
 
-> **Status:** scaffold / not implemented yet. Public API and middleware are planned; this release is packaging and project layout only.
+> **Status:** core limiter API in progress. Starlette middleware not shipped yet.
 
 ## Install
 
@@ -13,6 +13,30 @@ uv add starlette-ratelimiter
 # with pip
 pip install starlette-ratelimiter
 ```
+
+## Usage
+
+```python
+from redis import Redis
+from starlette_ratelimiter import Duration, Rate, RateLimiter
+
+redis = Redis.from_url("redis://localhost:6379/0")
+
+limiter = RateLimiter(
+    rate=Rate(limit=1, interval=Duration.MINUTE * 5),
+    identifier=lambda: "user:42",
+    redis=redis,
+)
+
+if limiter.hit():
+    ...  # allowed
+else:
+    ...  # rate limited
+```
+
+Omit `redis` to instantiate `Redis` from `redis_url` (default `redis://localhost:6379/0`). Pass `redis_class=RedisCluster` for cluster.
+
+Omit `identifier` to use the default key identity (`"default"`).
 
 ## Development
 

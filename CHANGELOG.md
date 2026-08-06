@@ -7,13 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Modular core API: `Duration`, `Rate`, `RateLimiter` with Redis / RedisCluster.
+- Fixed-window limiting via Redis `INCR` + `EXPIRE`.
+- Optional identifier callback (default: `"default"`).
+
 ### Changed
 
 - Renamed project from `fast-ratelimiter` to `starlette-ratelimiter`.
-
-### Added
-
-- Nothing yet.
 
 ## [0.1.0] - 2026-08-06
 
