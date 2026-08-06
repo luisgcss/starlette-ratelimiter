@@ -10,7 +10,7 @@ _orig_eval_type = typing._eval_type
 
 
 def _eval_type_compat(*args, prefer_fwd_module=None, **kwargs):
-    return _orig_eval_type(*args, **kwargs)
+	return _orig_eval_type(*args, **kwargs)
 
 
 typing._eval_type = _eval_type_compat  # type: ignore[assignment]

@@ -34,29 +34,29 @@ backend = RedisBackend(redis=redis)
 
 
 async def homepage(_request: Request) -> PlainTextResponse:
-    return PlainTextResponse("ok")
+	return PlainTextResponse("ok")
 
 
 async def on_shutdown() -> None:
-    await redis.aclose()
+	await redis.aclose()
 
 
 app = Starlette(
-    routes=[Route("/", homepage)],
-    on_shutdown=[on_shutdown],
+	routes=[Route("/", homepage)],
+	on_shutdown=[on_shutdown],
 )
 app.add_middleware(
-    RateLimitMiddleware,
-    rate=Rate(limit=5, interval=Duration.MINUTE),
-    identifier=lambda request: (
-        request.client.host if request.client is not None else "default"
-    ),
-    backend=backend,
-    key_prefix="example-starlette-redis",
+	RateLimitMiddleware,
+	rate=Rate(limit=5, interval=Duration.MINUTE),
+	identifier=lambda request: (
+		request.client.host if request.client is not None else "default"
+	),
+	backend=backend,
+	key_prefix="example-starlette-redis",
 )
 
 
 if __name__ == "__main__":
-    import uvicorn
+	import uvicorn
 
-    uvicorn.run(app, host="127.0.0.1", port=8003)
+	uvicorn.run(app, host="127.0.0.1", port=8003)

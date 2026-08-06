@@ -90,6 +90,9 @@ select = [
     "B",
     "C4",
 ]
+ignore = [
+    "W191"
+]
 
 [tool.ruff.lint.isort]
 known-first-party = ["asgi_ratelimiter"]

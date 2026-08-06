@@ -55,9 +55,9 @@ from asgi_ratelimiter.fastapi import RateLimiter
 configure_logging(level="INFO")
 
 limiter = RateLimiter(
-    rate=Rate(limit=5, interval=Duration.MINUTE),
-    identifier=lambda request: request.client.host if request.client else "default",
-    db_path="rate_limits.db",
+	rate=Rate(limit=5, interval=Duration.MINUTE),
+	identifier=lambda request: request.client.host if request.client else "default",
+	db_path="rate_limits.db",
 )
 
 app = FastAPI(dependencies=[Depends(limiter)])
@@ -72,8 +72,8 @@ from asgi_ratelimiter.fastapi import RateLimiter
 
 redis = Redis.from_url("redis://localhost:6379/0")
 limiter = RateLimiter(
-    rate=Rate(limit=5, interval=Duration.MINUTE),
-    backend=RedisBackend(redis=redis),
+	rate=Rate(limit=5, interval=Duration.MINUTE),
+	backend=RedisBackend(redis=redis),
 )
 ```
 
@@ -95,14 +95,16 @@ from asgi_ratelimiter.starlette import RateLimitMiddleware
 
 configure_logging(level="INFO")
 
+
 async def homepage(request):
-    return PlainTextResponse("ok")
+	return PlainTextResponse("ok")
+
 
 app = Starlette(routes=[Route("/", homepage)])
 app.add_middleware(
-    RateLimitMiddleware,
-    rate=Rate(limit=5, interval=Duration.MINUTE),
-    db_path="rate_limits.db",
+	RateLimitMiddleware,
+	rate=Rate(limit=5, interval=Duration.MINUTE),
+	db_path="rate_limits.db",
 )
 ```
 
@@ -115,9 +117,9 @@ from asgi_ratelimiter.starlette import RateLimitMiddleware
 
 redis = Redis.from_url("redis://localhost:6379/0")
 app.add_middleware(
-    RateLimitMiddleware,
-    rate=Rate(limit=5, interval=Duration.MINUTE),
-    backend=RedisBackend(redis=redis),
+	RateLimitMiddleware,
+	rate=Rate(limit=5, interval=Duration.MINUTE),
+	backend=RedisBackend(redis=redis),
 )
 ```
 
@@ -132,7 +134,7 @@ Examples:
 from asgi_ratelimiter import configure_logging, set_level
 
 configure_logging(level="DEBUG")  # enable library logs (loguru)
-set_level("WARNING")              # change level later
+set_level("WARNING")  # change level later
 ```
 
 Logging is off until `configure_logging` (or `set_level`) is called.

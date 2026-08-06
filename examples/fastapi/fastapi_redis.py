@@ -32,34 +32,34 @@ redis = Redis.from_url(REDIS_URL)
 backend = RedisBackend(redis=redis)
 
 limiter = RateLimiter(
-    rate=Rate(limit=5, interval=Duration.MINUTE),
-    identifier=lambda request: (
-        request.client.host if request.client is not None else "default"
-    ),
-    backend=backend,
-    key_prefix="example-fastapi-redis",
+	rate=Rate(limit=5, interval=Duration.MINUTE),
+	identifier=lambda request: (
+		request.client.host if request.client is not None else "default"
+	),
+	backend=backend,
+	key_prefix="example-fastapi-redis",
 )
 
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
-    yield
-    await redis.aclose()
+	yield
+	await redis.aclose()
 
 
 app = FastAPI(
-    title="asgi-ratelimiter FastAPI Redis example",
-    dependencies=[Depends(limiter)],
-    lifespan=lifespan,
+	title="asgi-ratelimiter FastAPI Redis example",
+	dependencies=[Depends(limiter)],
+	lifespan=lifespan,
 )
 
 
 @app.get("/ping")
 async def ping() -> dict[str, str]:
-    return {"status": "ok"}
+	return {"status": "ok"}
 
 
 if __name__ == "__main__":
-    import uvicorn
+	import uvicorn
 
-    uvicorn.run(app, host="127.0.0.1", port=8002)
+	uvicorn.run(app, host="127.0.0.1", port=8002)

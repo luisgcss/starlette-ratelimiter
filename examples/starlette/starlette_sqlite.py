@@ -29,31 +29,31 @@ DB_PATH = Path(__file__).with_name("rate_limits.db")
 
 
 async def homepage(_request: Request) -> PlainTextResponse:
-    return PlainTextResponse("ok")
+	return PlainTextResponse("ok")
 
 
 async def health(_request: Request) -> JSONResponse:
-    return JSONResponse({"status": "ok"})
+	return JSONResponse({"status": "ok"})
 
 
 app = Starlette(
-    routes=[
-        Route("/", homepage),
-        Route("/health", health),
-    ],
+	routes=[
+		Route("/", homepage),
+		Route("/health", health),
+	],
 )
 app.add_middleware(
-    RateLimitMiddleware,
-    rate=Rate(limit=5, interval=Duration.MINUTE),
-    identifier=lambda request: (
-        request.client.host if request.client is not None else "default"
-    ),
-    db_path=DB_PATH,
-    key_prefix="example-starlette",
+	RateLimitMiddleware,
+	rate=Rate(limit=5, interval=Duration.MINUTE),
+	identifier=lambda request: (
+		request.client.host if request.client is not None else "default"
+	),
+	db_path=DB_PATH,
+	key_prefix="example-starlette",
 )
 
 
 if __name__ == "__main__":
-    import uvicorn
+	import uvicorn
 
-    uvicorn.run(app, host="127.0.0.1", port=8001)
+	uvicorn.run(app, host="127.0.0.1", port=8001)
