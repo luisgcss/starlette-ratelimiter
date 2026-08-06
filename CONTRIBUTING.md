@@ -20,6 +20,21 @@ uv run ruff format --check .
 uv run pytest
 ```
 
+### Pre-commit
+
+Runs **ruff check** (with `--fix`), **ruff format**, and **pytest** on every commit:
+
+```bash
+uv sync --group dev
+uv run pre-commit install
+```
+
+Run against all files once:
+
+```bash
+uv run pre-commit run --all-files
+```
+
 Format before opening a PR:
 
 ```bash
