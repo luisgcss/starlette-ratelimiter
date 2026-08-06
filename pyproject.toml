@@ -1,0 +1,119 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fast-ratelimiter"
+version = "0.1.0"
+description = "Fast, async rate limiting middleware and utilities for FastAPI applications"
+readme = "README.md"
+requires-python = ">=3.14"
+license = "AGPL-3.0-or-later"
+authors = [
+    { name = "luisgcss" },
+]
+keywords = [
+    "rate-limiter",
+    "rate-limiting",
+    "fastapi",
+    "async",
+    "middleware",
+    "throttling",
+    "api",
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Framework :: FastAPI",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+dependencies = [
+    "fastapi>=0.115",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.9",
+    "pytest>=8.0",
+    "pytest-cov>=6.0",
+    "pytest-asyncio>=0.25",
+    "pytest-mock>=3.14",
+    "httpx>=0.28",
+]
+
+[project.urls]
+Homepage = "https://github.com/luisgcss/fast-ratelimiter"
+Repository = "https://github.com/luisgcss/fast-ratelimiter"
+Issues = "https://github.com/luisgcss/fast-ratelimiter/issues"
+Changelog = "https://github.com/luisgcss/fast-ratelimiter/blob/master/CHANGELOG.md"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/fast_ratelimiter"]
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "/.github",
+    "/.agents",
+    "/skills-lock.json",
+]
+
+[tool.ruff]
+target-version = "py314"
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # Pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["fast_ratelimiter"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+addopts = [
+    "--cov=fast_ratelimiter",
+    "--cov-report=term-missing",
+    "--strict-markers",
+]
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests",
+]
+
+[tool.coverage.run]
+source = ["src/fast_ratelimiter"]
+branch = true
+omit = [
+    "*/tests/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+]
+precision = 2
+show_missing = true

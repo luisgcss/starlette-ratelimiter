@@ -1,0 +1,76 @@
+# Agent skills (local only — do not commit)
+.agents/
+skills-lock.json
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Bytecode / caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+sdist/
+wheels/
+pip-wheel-metadata/
+
+# Test / coverage / linters
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+.cache/
+
+# Type checkers / other tools
+.pytype/
+.pyre/
+dmypy.json
+.dmypy.json
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Jupyter
+.ipynb_checkpoints/
+
+# mypy / pyright
+.pyright/
+
+# Keep for uv (do NOT ignore):
+# .python-version
+# uv.lock
