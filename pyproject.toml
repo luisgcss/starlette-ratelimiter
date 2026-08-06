@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "starlette-ratelimiter"
-version = "0.1.1"
-description = "Fast, async rate limiting middleware and utilities for Starlette applications"
+name = "asgi-ratelimiter"
+version = "0.1.0"
+description = "Modular ASGI rate limiting for FastAPI and Starlette"
 readme = "README.md"
 requires-python = ">=3.14"
 license = "AGPL-3.0-or-later"
@@ -15,6 +15,8 @@ authors = [
 keywords = [
     "rate-limiter",
     "rate-limiting",
+    "asgi",
+    "fastapi",
     "starlette",
     "async",
     "middleware",
@@ -23,6 +25,7 @@ keywords = [
 ]
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
+    "Framework :: FastAPI",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
     "Programming Language :: Python :: 3",
@@ -33,9 +36,14 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
-    "starlette>=0.40",
-    "redis>=5.0",
+    "loguru>=0.7",
 ]
+
+[project.optional-dependencies]
+fastapi = ["fastapi>=0.140"]
+starlette = ["starlette>=0.40"]
+sqlite = []
+redis = ["redis>=5.0"]
 
 [dependency-groups]
 dev = [
@@ -44,17 +52,19 @@ dev = [
     "pytest-cov>=6.0",
     "pytest-asyncio>=0.25",
     "pytest-mock>=3.14",
-    "httpx>=0.28",
+    "fastapi>=0.115",
+    "starlette>=0.40",
+    "httpx2>=2.9.1",
 ]
 
 [project.urls]
-Homepage = "https://github.com/luisgcss/starlette-ratelimiter"
-Repository = "https://github.com/luisgcss/starlette-ratelimiter"
-Issues = "https://github.com/luisgcss/starlette-ratelimiter/issues"
-Changelog = "https://github.com/luisgcss/starlette-ratelimiter/blob/master/CHANGELOG.md"
+Homepage = "https://github.com/luisgcss/asgi-ratelimiter"
+Repository = "https://github.com/luisgcss/asgi-ratelimiter"
+Issues = "https://github.com/luisgcss/asgi-ratelimiter/issues"
+Changelog = "https://github.com/luisgcss/asgi-ratelimiter/blob/master/CHANGELOG.md"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/starlette_ratelimiter"]
+packages = ["src/asgi_ratelimiter"]
 
 [tool.hatch.build.targets.sdist]
 exclude = [
@@ -69,18 +79,18 @@ line-length = 88
 
 [tool.ruff.lint]
 select = [
-    "E",   # pycodestyle errors
-    "W",   # pycodestyle warnings
-    "F",   # Pyflakes
-    "I",   # isort
-    "N",   # pep8-naming
-    "UP",  # pyupgrade
-    "B",   # flake8-bugbear
-    "C4",  # flake8-comprehensions
+    "E",
+    "W",
+    "F",
+    "I",
+    "N",
+    "UP",
+    "B",
+    "C4",
 ]
 
 [tool.ruff.lint.isort]
-known-first-party = ["starlette_ratelimiter"]
+known-first-party = ["asgi_ratelimiter"]
 
 [tool.ruff.format]
 quote-style = "double"
@@ -93,7 +103,7 @@ testpaths = ["tests"]
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
 addopts = [
-    "--cov=starlette_ratelimiter",
+    "--cov=asgi_ratelimiter",
     "--cov-report=term-missing",
     "--strict-markers",
 ]
@@ -103,7 +113,7 @@ markers = [
 ]
 
 [tool.coverage.run]
-source = ["src/starlette_ratelimiter"]
+source = ["src/asgi_ratelimiter"]
 branch = true
 omit = [
     "*/tests/*",

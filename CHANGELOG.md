@@ -9,21 +9,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Modular core API: `Duration`, `Rate`, `RateLimiter` with Redis / RedisCluster.
-- Fixed-window limiting via Redis `INCR` + `EXPIRE`.
-- Optional identifier callback (default: `"default"`).
+- Nothing yet.
+
+## [0.2.0] - 2026-08-06
 
 ### Changed
 
-- Renamed project from `fast-ratelimiter` to `starlette-ratelimiter`.
-
-## [0.1.0] - 2026-08-06
+- Renamed package to `asgi-ratelimiter` with framework submodules
+  (`asgi_ratelimiter.fastapi`, `asgi_ratelimiter.starlette`).
+- Core no longer depends on Redis; storage is pluggable via backends.
 
 ### Added
 
-- Initial project scaffold: `src/` package layout, packaging (`hatchling` + `uv`),
-  ruff, pytest, and smoke version test.
-- No rate-limiter implementation yet.
+- Optional extras: `fastapi`, `starlette`, `sqlite`, `redis` (Redis deferred).
+- SQLite fixed-window backend (stdlib ``sqlite3``).
+- Loguru-based `configure_logging` / `set_level`.
+- FastAPI `Depends(RateLimiter(...))` integration.
+- Starlette `RateLimitMiddleware`.
 
-[Unreleased]: https://github.com/luisgcss/starlette-ratelimiter/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/luisgcss/starlette-ratelimiter/releases/tag/v0.1.0
+## [0.1.1] - 2026-08-06
+
+### Added
+
+- Initial modular core under previous `starlette-ratelimiter` name.
+
+[Unreleased]: https://github.com/luisgcss/asgi-ratelimiter/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/luisgcss/asgi-ratelimiter/releases/tag/v0.2.0
+[0.1.1]: https://github.com/luisgcss/asgi-ratelimiter/releases/tag/v0.1.1

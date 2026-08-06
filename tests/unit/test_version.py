@@ -2,9 +2,9 @@
 
 import pytest
 
-from starlette_ratelimiter import __version__
+from asgi_ratelimiter import __version__
 
 
 @pytest.mark.unit
 def test_version() -> None:
-    assert __version__ == "0.1.1"
+    assert __version__ == "0.1.0"

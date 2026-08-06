@@ -4,7 +4,7 @@ from __future__ import annotations
 
 
 class RateLimiterError(Exception):
-    """Base error for starlette-ratelimiter."""
+    """Base error for asgi-ratelimiter."""
 
 
 class RateLimitExceeded(RateLimiterError):  # noqa: N818

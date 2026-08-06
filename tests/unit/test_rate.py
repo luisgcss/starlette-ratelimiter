@@ -2,7 +2,7 @@
 
 import pytest
 
-from starlette_ratelimiter import Duration, Rate
+from asgi_ratelimiter import Duration, Rate
 
 
 @pytest.mark.unit
@@ -15,6 +15,10 @@ class TestRate:
     def test_rejects_invalid_limit(self) -> None:
         with pytest.raises(ValueError):
             Rate(limit=0, interval=Duration.SECOND)
+
+    def test_rejects_non_int_limit(self) -> None:
+        with pytest.raises(TypeError, match="limit must be int"):
+            Rate(limit=1.5, interval=Duration.SECOND)  # type: ignore[arg-type]
 
     def test_rejects_invalid_interval_type(self) -> None:
         with pytest.raises(TypeError):

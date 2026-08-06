@@ -1,50 +1,63 @@
-# starlette-ratelimiter
+# asgi-ratelimiter
 
-Fast, async rate limiting for [Starlette](https://www.starlette.io/) apps.
-
-> **Status:** core limiter API in progress. Starlette middleware not shipped yet.
+Modular ASGI rate limiting for [FastAPI](https://fastapi.tiangolo.com/) and [Starlette](https://www.starlette.io/).
 
 ## Install
 
 ```bash
-# with uv
-uv add starlette-ratelimiter
+# FastAPI + SQLite
+uv add "asgi-ratelimiter[fastapi,sqlite]"
 
-# with pip
-pip install starlette-ratelimiter
+# Starlette + SQLite
+uv add "asgi-ratelimiter[starlette,sqlite]"
 ```
 
-## Usage
+Optional extras: `fastapi`, `starlette`, `sqlite`, `redis` (Redis backend not implemented yet).
+
+## FastAPI
 
 ```python
-from redis import Redis
-from starlette_ratelimiter import Duration, Rate, RateLimiter
+from fastapi import Depends, FastAPI
+from asgi_ratelimiter import Duration, Rate, configure_logging
+from asgi_ratelimiter.fastapi import RateLimiter
 
-redis = Redis.from_url("redis://localhost:6379/0")
+configure_logging(level="DEBUG")
 
-limiter = RateLimiter(
-    rate=Rate(limit=1, interval=Duration.MINUTE * 5),
-    identifier=lambda: "user:42",
-    redis=redis,
+app = FastAPI(
+    dependencies=[
+        Depends(
+            RateLimiter(
+                rate=Rate(limit=1, interval=Duration.MINUTE * 5),
+                identifier=lambda request: request.client.host or "default",
+            )
+        )
+    ]
 )
-
-if limiter.hit():
-    ...  # allowed
-else:
-    ...  # rate limited
 ```
 
-Omit `redis` to instantiate `Redis` from `redis_url` (default `redis://localhost:6379/0`). Pass `redis_class=RedisCluster` for cluster.
+## Starlette
 
-Omit `identifier` to use the default key identity (`"default"`).
+```python
+from starlette.applications import Starlette
+from asgi_ratelimiter import Duration, Rate, configure_logging
+from asgi_ratelimiter.starlette import RateLimitMiddleware
 
-## Development
+configure_logging(level="INFO")
 
-```bash
-uv sync
-uv run pytest
-uv run ruff check .
-uv run ruff format .
+app = Starlette()
+app.add_middleware(
+    RateLimitMiddleware,
+    rate=Rate(limit=10, interval=Duration.MINUTE),
+)
+```
+
+## Logging
+
+```python
+from asgi_ratelimiter import configure_logging, set_level
+
+configure_logging(level="DEBUG")
+set_level("WARNING")
 ```
 
 ## License
@@ -53,5 +66,5 @@ uv run ruff format .
 
 ## Links
 
-- Repository: https://github.com/luisgcss/starlette-ratelimiter
-- Issues: https://github.com/luisgcss/starlette-ratelimiter/issues
+- Repository: https://github.com/luisgcss/asgi-ratelimiter
+- Issues: https://github.com/luisgcss/asgi-ratelimiter/issues
