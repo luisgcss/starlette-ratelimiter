@@ -61,6 +61,7 @@ limiter = RateLimiter(
 
 app = FastAPI(dependencies=[Depends(limiter)])
 
+
 @app.get("/ping")
 async def ping() -> dict[str, str]:
     return {"status": "ok"}
@@ -81,8 +82,10 @@ from asgi_ratelimiter.starlette import RateLimitMiddleware
 
 configure_logging(level="INFO")
 
+
 async def homepage(request):
     return PlainTextResponse("ok")
+
 
 app = Starlette(routes=[Route("/", homepage)])
 app.add_middleware(
@@ -100,7 +103,7 @@ Runnable example: [`examples/starlette/starlette_sqlite.py`](examples/starlette/
 from asgi_ratelimiter import configure_logging, set_level
 
 configure_logging(level="DEBUG")  # enable library logs (loguru)
-set_level("WARNING")              # change level later
+set_level("WARNING")  # change level later
 ```
 
 Logging is off until `configure_logging` (or `set_level`) is called.
