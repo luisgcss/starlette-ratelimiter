@@ -65,6 +65,10 @@ Desktop.ini
 .env.*
 !.env.example
 
+# Example runtime DBs
+examples/**/rate_limits.db
+examples/**/rate_limits.db-*
+
 # Jupyter
 .ipynb_checkpoints/
 
