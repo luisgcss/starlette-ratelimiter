@@ -34,7 +34,7 @@ wheels = [
 
 [[package]]
 name = "asgi-ratelimiter"
-version = "0.2.0"
+version = "0.3.0"
 source = { editable = "." }
 dependencies = [
     { name = "loguru" },
@@ -60,6 +60,7 @@ dev = [
     { name = "pytest-asyncio" },
     { name = "pytest-cov" },
     { name = "pytest-mock" },
+    { name = "redis" },
     { name = "ruff" },
     { name = "starlette" },
 ]
@@ -82,6 +83,7 @@ dev = [
     { name = "pytest-asyncio", specifier = ">=0.25" },
     { name = "pytest-cov", specifier = ">=6.0" },
     { name = "pytest-mock", specifier = ">=3.14" },
+    { name = "redis", specifier = ">=5.0" },
     { name = "ruff", specifier = ">=0.9" },
     { name = "starlette", specifier = ">=0.40" },
 ]

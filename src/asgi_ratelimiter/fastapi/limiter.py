@@ -36,6 +36,9 @@ class RateLimiter:
     """Async FastAPI dependency that enforces a fixed-window rate limit.
 
     Use with ``Depends(RateLimiter(...))`` at app or route level.
+
+    Pass ``backend=RedisBackend(redis=...)`` for Redis, or omit ``backend``
+    to use the default SQLite store (``db_path``).
     """
 
     def __init__(

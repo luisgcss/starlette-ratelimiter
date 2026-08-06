@@ -4,7 +4,7 @@ Modular rate limiting for [ASGI](https://asgi.readthedocs.io/) apps — use
 `Depends` with [FastAPI](https://fastapi.tiangolo.com/) or middleware with
 [Starlette](https://www.starlette.io/).
 
-Fixed-window limits backed by SQLite (stdlib). Redis extra is reserved for later.
+Fixed-window limits with **SQLite** (default) or **Redis** backends.
 
 ## Requirements
 
@@ -13,11 +13,14 @@ Fixed-window limits backed by SQLite (stdlib). Redis extra is reserved for later
 ## Install
 
 ```bash
-# FastAPI (SQLite backend is built-in)
+# FastAPI + SQLite (default backend)
 uv add "asgi-ratelimiter[fastapi]"
 
-# Starlette
-uv add "asgi-ratelimiter[starlette]"
+# FastAPI + Redis
+uv add "asgi-ratelimiter[fastapi,redis]"
+
+# Starlette + Redis
+uv add "asgi-ratelimiter[starlette,redis]"
 ```
 
 Extras:
@@ -27,9 +30,7 @@ Extras:
 | `fastapi` | FastAPI `Depends` integration |
 | `starlette` | Starlette middleware |
 | `sqlite` | Marker only (stdlib `sqlite3`; no extra packages) |
-| `redis` | Declared for future Redis backend |
-
-Combine extras: `uv add "asgi-ratelimiter[fastapi,sqlite]"`.
+| `redis` | Redis backend (`redis` package) |
 
 ## Concepts
 
@@ -60,16 +61,28 @@ limiter = RateLimiter(
 )
 
 app = FastAPI(dependencies=[Depends(limiter)])
+```
 
+### Redis backend
 
-@app.get("/ping")
-async def ping() -> dict[str, str]:
-    return {"status": "ok"}
+```python
+from redis.asyncio import Redis
+from asgi_ratelimiter.backends.redis import RedisBackend
+from asgi_ratelimiter.fastapi import RateLimiter
+
+redis = Redis.from_url("redis://localhost:6379/0")
+limiter = RateLimiter(
+    rate=Rate(limit=5, interval=Duration.MINUTE),
+    backend=RedisBackend(redis=redis),
+)
 ```
 
 Over limit → HTTP **429** with optional `Retry-After`.
 
-Runnable example: [`examples/fastapi/fastapi_sqlite.py`](examples/fastapi/fastapi_sqlite.py)
+Examples:
+
+- [`examples/fastapi/fastapi_sqlite.py`](examples/fastapi/fastapi_sqlite.py)
+- [`examples/fastapi/fastapi_redis.py`](examples/fastapi/fastapi_redis.py)
 
 ## Starlette
 
@@ -82,10 +95,8 @@ from asgi_ratelimiter.starlette import RateLimitMiddleware
 
 configure_logging(level="INFO")
 
-
 async def homepage(request):
     return PlainTextResponse("ok")
-
 
 app = Starlette(routes=[Route("/", homepage)])
 app.add_middleware(
@@ -95,7 +106,25 @@ app.add_middleware(
 )
 ```
 
-Runnable example: [`examples/starlette/starlette_sqlite.py`](examples/starlette/starlette_sqlite.py)
+### Redis backend
+
+```python
+from redis.asyncio import Redis
+from asgi_ratelimiter.backends.redis import RedisBackend
+from asgi_ratelimiter.starlette import RateLimitMiddleware
+
+redis = Redis.from_url("redis://localhost:6379/0")
+app.add_middleware(
+    RateLimitMiddleware,
+    rate=Rate(limit=5, interval=Duration.MINUTE),
+    backend=RedisBackend(redis=redis),
+)
+```
+
+Examples:
+
+- [`examples/starlette/starlette_sqlite.py`](examples/starlette/starlette_sqlite.py)
+- [`examples/starlette/starlette_redis.py`](examples/starlette/starlette_redis.py)
 
 ## Logging
 
@@ -103,7 +132,7 @@ Runnable example: [`examples/starlette/starlette_sqlite.py`](examples/starlette/
 from asgi_ratelimiter import configure_logging, set_level
 
 configure_logging(level="DEBUG")  # enable library logs (loguru)
-set_level("WARNING")  # change level later
+set_level("WARNING")              # change level later
 ```
 
 Logging is off until `configure_logging` (or `set_level`) is called.

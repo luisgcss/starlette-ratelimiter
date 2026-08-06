@@ -47,7 +47,12 @@ uv run ruff check --fix .
 1. Fork and branch from `develop` (or `master` for hotfixes).
 2. Keep changes focused; match existing style (`src/` layout, type hints).
 3. Add/update tests for behavior changes — suite targets high coverage.
-4. Update `CHANGELOG.md` under `[Unreleased]` when relevant.
+4. Bump the package version (**semver**) in both `pyproject.toml` and
+   `src/asgi_ratelimiter/__init__.py` (keep them identical), and update
+   `tests/unit/test_version.py` + `CHANGELOG.md`:
+   - **MAJOR** (`x.0.0`) — breaking public API changes
+   - **MINOR** (`0.x.0`) — new features, backwards-compatible
+   - **PATCH** (`0.0.x`) — bug fixes, docs-only, internal cleanups
 5. Open a PR against `develop` with a short summary of *why*.
 
 CI runs on `master` and `develop` (lint, test, build). Merges to `master` publish to PyPI when the version is new.

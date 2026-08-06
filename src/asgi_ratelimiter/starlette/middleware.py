@@ -34,7 +34,11 @@ def _default_identifier(request: Request) -> str:
 
 
 class RateLimitMiddleware(BaseHTTPMiddleware):
-    """Reject requests that exceed ``rate`` for a resolved client key."""
+    """Reject requests that exceed ``rate`` for a resolved client key.
+
+    Pass ``backend=RedisBackend(redis=...)`` for Redis, or omit ``backend``
+    to use the default SQLite store (``db_path``).
+    """
 
     def __init__(
         self,

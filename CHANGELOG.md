@@ -9,7 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- README overhaul, `CONTRIBUTING.md`, and `examples/` (FastAPI + Starlette SQLite demos).
+- Nothing yet.
+
+## [0.3.0] - 2026-08-06
+
+### Added
+
+- Redis fixed-window backend (`RedisBackend`) for FastAPI and Starlette via `backend=`.
+- Examples: `examples/fastapi/fastapi_redis.py`, `examples/starlette/starlette_redis.py`.
+- README overhaul, `CONTRIBUTING.md`, and SQLite examples.
 
 ## [0.2.0] - 2026-08-06
 
@@ -21,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Optional extras: `fastapi`, `starlette`, `sqlite`, `redis` (Redis deferred).
+- Optional extras: `fastapi`, `starlette`, `sqlite`, `redis`.
 - SQLite fixed-window backend (stdlib ``sqlite3``).
 - Loguru-based `configure_logging` / `set_level`.
 - FastAPI `Depends(RateLimiter(...))` integration.
@@ -33,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial modular core under previous `starlette-ratelimiter` name.
 
-[Unreleased]: https://github.com/luisgcss/asgi-ratelimiter/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/luisgcss/asgi-ratelimiter/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/luisgcss/asgi-ratelimiter/releases/tag/v0.3.0
 [0.2.0]: https://github.com/luisgcss/asgi-ratelimiter/releases/tag/v0.2.0
 [0.1.1]: https://github.com/luisgcss/asgi-ratelimiter/releases/tag/v0.1.1
