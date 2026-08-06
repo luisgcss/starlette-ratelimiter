@@ -2,7 +2,7 @@
 
 import pytest
 
-from fast_ratelimiter import __version__
+from starlette_ratelimiter import __version__
 
 
 @pytest.mark.unit

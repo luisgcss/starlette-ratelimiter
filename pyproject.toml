@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "fast-ratelimiter"
+name = "starlette-ratelimiter"
 version = "0.1.0"
-description = "Fast, async rate limiting middleware and utilities for FastAPI applications"
+description = "Fast, async rate limiting middleware and utilities for Starlette applications"
 readme = "README.md"
 requires-python = ">=3.14"
 license = "AGPL-3.0-or-later"
@@ -15,7 +15,7 @@ authors = [
 keywords = [
     "rate-limiter",
     "rate-limiting",
-    "fastapi",
+    "starlette",
     "async",
     "middleware",
     "throttling",
@@ -23,7 +23,6 @@ keywords = [
 ]
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
-    "Framework :: FastAPI",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
     "Programming Language :: Python :: 3",
@@ -34,7 +33,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
-    "fastapi>=0.115",
+    "starlette>=0.40",
 ]
 
 [dependency-groups]
@@ -48,13 +47,13 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/luisgcss/fast-ratelimiter"
-Repository = "https://github.com/luisgcss/fast-ratelimiter"
-Issues = "https://github.com/luisgcss/fast-ratelimiter/issues"
-Changelog = "https://github.com/luisgcss/fast-ratelimiter/blob/master/CHANGELOG.md"
+Homepage = "https://github.com/luisgcss/starlette-ratelimiter"
+Repository = "https://github.com/luisgcss/starlette-ratelimiter"
+Issues = "https://github.com/luisgcss/starlette-ratelimiter/issues"
+Changelog = "https://github.com/luisgcss/starlette-ratelimiter/blob/master/CHANGELOG.md"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/fast_ratelimiter"]
+packages = ["src/starlette_ratelimiter"]
 
 [tool.hatch.build.targets.sdist]
 exclude = [
@@ -80,7 +79,7 @@ select = [
 ]
 
 [tool.ruff.lint.isort]
-known-first-party = ["fast_ratelimiter"]
+known-first-party = ["starlette_ratelimiter"]
 
 [tool.ruff.format]
 quote-style = "double"
@@ -93,7 +92,7 @@ testpaths = ["tests"]
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
 addopts = [
-    "--cov=fast_ratelimiter",
+    "--cov=starlette_ratelimiter",
     "--cov-report=term-missing",
     "--strict-markers",
 ]
@@ -103,7 +102,7 @@ markers = [
 ]
 
 [tool.coverage.run]
-source = ["src/fast_ratelimiter"]
+source = ["src/starlette_ratelimiter"]
 branch = true
 omit = [
     "*/tests/*",

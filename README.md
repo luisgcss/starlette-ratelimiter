@@ -1,6 +1,6 @@
-# fast-ratelimiter
+# starlette-ratelimiter
 
-Fast, async rate limiting for [FastAPI](https://fastapi.tiangolo.com/) apps.
+Fast, async rate limiting for [Starlette](https://www.starlette.io/) apps.
 
 > **Status:** scaffold / not implemented yet. Public API and middleware are planned; this release is packaging and project layout only.
 
@@ -8,10 +8,10 @@ Fast, async rate limiting for [FastAPI](https://fastapi.tiangolo.com/) apps.
 
 ```bash
 # with uv
-uv add fast-ratelimiter
+uv add starlette-ratelimiter
 
 # with pip
-pip install fast-ratelimiter
+pip install starlette-ratelimiter
 ```
 
 ## Development
@@ -29,5 +29,5 @@ uv run ruff format .
 
 ## Links
 
-- Repository: https://github.com/luisgcss/fast-ratelimiter
-- Issues: https://github.com/luisgcss/fast-ratelimiter/issues
+- Repository: https://github.com/luisgcss/starlette-ratelimiter
+- Issues: https://github.com/luisgcss/starlette-ratelimiter/issues

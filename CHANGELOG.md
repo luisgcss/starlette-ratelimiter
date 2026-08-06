@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Renamed project from `fast-ratelimiter` to `starlette-ratelimiter`.
+
 ### Added
 
 - Nothing yet.
@@ -19,5 +23,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   ruff, pytest, and smoke version test.
 - No rate-limiter implementation yet.
 
-[Unreleased]: https://github.com/luisgcss/fast-ratelimiter/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/luisgcss/fast-ratelimiter/releases/tag/v0.1.0
+[Unreleased]: https://github.com/luisgcss/starlette-ratelimiter/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/luisgcss/starlette-ratelimiter/releases/tag/v0.1.0
